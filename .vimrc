@@ -5,3 +5,7 @@ set colorcolumn=80
 set number relativenumber "absolute line and relative jumps
 set ruler
 syntax on
+
+"remaps
+nnoremap <C-d> <C-d>zz "center on half page move down
+nnoremap <C-u> <C-u>zz "center on half page move up
