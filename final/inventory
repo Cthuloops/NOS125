@@ -1,3 +1,6 @@
 [webservers]
 servera.lab.example.com
 serverb.lab.example.com
+
+[workstation]
+workstation.lab.example.com

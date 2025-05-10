@@ -2,7 +2,7 @@
 # First play, configure the webservers.
 - name: Configure webservers
   hosts: webservers
-  vars_file:
+  vars_files:
     - vars/packages.yml 
 
   tasks:
