@@ -1,0 +1,8 @@
+---
+- name: Check {{ service }} status
+  ansible.builtin.command: systemctl status "{{ service }}"
+  register: result
+
+- name: Display {{ service }} status
+  ansible.builtin.debug:
+    var: result
