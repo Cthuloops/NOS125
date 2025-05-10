@@ -5,5 +5,13 @@
   tasks:
     - name: Connect to internet web server
       ansible.builtin.uri:
-        url: "http://{{ inventory_hostname }}"
+        url: "http://{{ item }}"
         status_code: 200
+      loop: "{{ groups['webservers'] }}"
+      register: results
+      ignore_errors: true
+
+    - name: Display test results
+      ansible.builtin.debug:
+        var: results
+        verbosity: 0

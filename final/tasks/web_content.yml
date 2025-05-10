@@ -1,0 +1,8 @@
+---
+- name: Create default index.html file
+  ansible.builtin.copy:
+    content: "Welcome to {{ ansible_hostname }} web server"
+    dest: /var/www/html/index.html
+    owner: apache
+    group: apache
+    mode: '0644'

@@ -14,13 +14,17 @@
         service: "{{ item.service }}"
       loop: "{{ packages }}"
 
-    # Opent the listed ports in firewalld.
+    # Open the listed ports in firewalld.
     - name: Open the firewall ports
       include_tasks: tasks/firewall.yml
       vars:
         rule:
           - http
           - https
+
+    # Create the index
+    - name: Create web index
+      include_tasks: tasks/web_content.yml
 
 # Second play, import the test playbook and run against the webservers.
 - name: Import test play file and set the variable
