@@ -5,7 +5,7 @@
       state: latest
 
   - name: Start the {{ service }} service
-    ansible.builtin.dnf:
+    ansible.builtin.service:
       name: "{{ service }}"
       enabled: true
       state: started
