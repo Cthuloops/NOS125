@@ -1,6 +1,7 @@
 ---
 - name: Test web service
-  hosts: {{ host_group }}
+  hosts: workstation
+  become: false
   tasks:
     - name: Connect to internet web server
       ansible.builtin.uri:
