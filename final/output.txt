@@ -1,0 +1,4 @@
+K [Display test results] ****************************************************
+ok: [workstation] => {
+    "msg": "WEB SERVER STATUS:\n-----------------\n- servera.lab.example.com: ONLINE (Status: 200)\n- serverb.lab.example.com: ONLINE (Status: 200)\n"
+    }
