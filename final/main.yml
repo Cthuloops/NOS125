@@ -7,10 +7,17 @@
 
   tasks:
     # Install the packages and start the related services.
-    - name: Inclued the environment task file and set the variables
+    - name: Include the environment task file and set the variables
       include_tasks: tasks/environment.yml
       vars:
         package: "{{ item.name }}"
+        service: "{{ item.service }}"
+      loop: "{{ packages }}"
+
+    # Check the status of the services
+    - name: Verify service status
+      include_tasks: tasks/verify_services.yml
+      vars:
         service: "{{ item.service }}"
       loop: "{{ packages }}"
 

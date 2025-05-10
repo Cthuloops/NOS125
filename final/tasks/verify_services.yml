@@ -1,8 +1,34 @@
 ---
-- name: Check {{ service }} status
-  ansible.builtin.command: systemctl status "{{ service }}"
-  register: result
+# Use systemctl to check if the service is running.
+- name: Verify and recover {{ service }} if needed
+  block:
+    # Check if the service is running
+    - name: Verify service is running
+      ansible.builtin.command: systemctl is-active {{ service }}
+      register: service_check
+      changed_when: false
+      failed_when: service_check.stdout != "active"
 
-- name: Display {{ service }} status
-  ansible.builtin.debug:
-    var: result
+  rescue:
+    - name: Service {{ service }} failed check - attempting to restart
+      ansible.builtin.debug:
+        msg: "Service {{ service }} is not running. Attempting a restart..."
+
+    # If the service wasn't running, try to restart it.
+    - name: Restart {{ service }}
+      ansible.builtin.service:
+        name: "{{ service }}"
+        state: restarted
+
+    # Check if restarting made it run.
+    - name: Verify {{ service }} after restart
+      ansible.builtin.command: systemctl is-active {{ service }}
+      register: restart_check
+      changed_when: false
+      failed_when: false
+
+    # Fail with a clear error if the service won't start.
+    - name: Report final error status
+      ansible.builtin.fail:
+        msg: "ERROR: Attempts to start {{ service }} have failed!"
+      when: restart_check.stdout != "active"
