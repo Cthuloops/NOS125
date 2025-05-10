@@ -5,5 +5,5 @@
   tasks:
     - name: Connect to internet web server
       ansible.builtin.uri:
-        url: "{{ url }}"
+        url: "http://{{ inventory_hostname }}"
         status_code: 200
