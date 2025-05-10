@@ -1,0 +1,25 @@
+---
+- name: Configure webservers
+  hosts: webservers
+  vars_file:
+    - vars/packages.yml 
+
+  tasks:
+    - name: Inclued the environment task file and set the variables
+      include_tasks: tasks/environment.yml
+      vars:
+        package: "{{ item.name }}"
+        service: "{{ item.service }}"
+      loop: "{{ packages }}"
+
+    - name: Open the firewall ports
+      include_tasks: tasks/firewall.yml
+      vars:
+        rule:
+          - http
+          - https
+
+    - name: Import test play file and set the variable
+      import_playbook: plays/test.yml
+      vars:
+        host_group: webservers
