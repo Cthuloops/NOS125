@@ -13,5 +13,15 @@
 
     - name: Display test results
       ansible.builtin.debug:
-        var: results
+        msg: |
+        WEB SERVER STATUS:
+        {% for item in results.results %}
+        {% set server_status %}
+        {% if item.status is defined and item.status == 200 %}
+        ONLINE (Status: 200)
+        {% else %}
+        OFFLINE (Status: {{ item.status | default('Connection Error') }})
+        {% endif %}
+        {% endset %}
+        - {{ item.item }}: {{ server_status }}
         verbosity: 0
