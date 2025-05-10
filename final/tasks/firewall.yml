@@ -1,0 +1,8 @@
+---
+  - name: Open the port for {{ rule }}
+    ansible.posix.firewalld:
+      service: "{{ item }}"
+      immediate: true
+      permanent: true
+      state: enabled
+    loop: "{{ rule }}"

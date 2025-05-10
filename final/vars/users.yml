@@ -1,0 +1,8 @@
+# Users definitions
+users:
+  - username: junior
+    group: jr_admins
+    home: /home/junior
+  - username: senior
+    group: sr_admins
+    home: /home/senior

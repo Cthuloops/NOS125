@@ -1,0 +1,10 @@
+# List of packages to be installed installed on the target servers
+packages:
+  - name: httpd
+    service: httpd
+
+  - name: mariadb-server
+    service: mariadb
+
+  - name: firewalld
+    service: firewalld
