@@ -41,4 +41,4 @@
 
 # Import and run the tests
 - name: Run tests
-  import_playbook: test.yml
+  import_playbook: plays/test.yml

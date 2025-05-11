@@ -1,3 +1,10 @@
 ---
-# Import and run the test playbooks
-- name: Run testing playbooks
+# Import the test_webservices playbook and run against the webservers.
+- name: Import test_webservices play file and set the variable
+  import_playbook: test_webservice.yml
+  vars:
+    host_group: webservers
+
+# Import the test_users playbook and run against the webservers
+- name: Import test_users play file
+  import_playbook: test_users.yml
