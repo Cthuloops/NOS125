@@ -27,6 +27,7 @@ final/
 │   └── web_content.yml     # Sets up web server content
 └── vars                    # Variable definitions
     ├── packages.yml        # Defines packages to install and services to run
+    ├── firewall_rules.yml  # Defines rules for firewall configuration
     ├── user_groups.yml     # Defines admin groups
     └── users.yml           # Defines user accounts
 
@@ -80,5 +81,4 @@ After execution, the playbook automagically runs tests to verify:
 The use of variables and var files allows for simple customization of user
 accounts, packages, and firewall settings:
 - Update variables in the `vars/` directory to change packages, users, or groups
-- Adjust firewall ruls as needed in the tasks/firewall.yml
 - Target different hosts using the inventory file

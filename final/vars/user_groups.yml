@@ -1,6 +1,5 @@
 # Groups definition
+# List of groups to create on the hosts.
 admin_groups:
   - name: jr_admins
-    state: present
   - name: sr_admins
-    state: present

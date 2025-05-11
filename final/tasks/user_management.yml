@@ -1,10 +1,13 @@
+# tasks/user_management.yml
+# This file handles user group and account creation.
+# It includes simple error reporting if the group or account creation fails.
 ---
 - name: Configure user groups
   block:
     - name: Create admin groups
       ansible.builtin.group:
         name: "{{ item.name }}"
-        state: "{{ item.state }}"
+        state: present
       loop: "{{ admin_groups }}"
   rescue:
     - name: Report group creation failure

@@ -1,3 +1,5 @@
+# tasks/web_content.yml
+# This file creates a simple index file for testing web services.
 ---
 - name: Create default index.html file
   ansible.builtin.copy:

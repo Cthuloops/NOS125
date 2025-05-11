@@ -1,3 +1,6 @@
+# tasks/firewall.yml
+# This file handles the logic for opening firewall ports.
+# It could be extended to handle other logic for firewall configuration.
 ---
   - name: Open the port for {{ rule }}
     ansible.posix.firewalld:

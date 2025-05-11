@@ -1,5 +1,11 @@
+# tasks/verify_services.yml
+# This file verifies system services and restarts them if necessary.
 ---
-# Use systemctl to check if the service is running.
+# I considered making this a test playbook, however, I think it's more suitable
+# as a task since there could be side-effects of running. Where I believe the
+# test playbooks should be side-effect free.
+#
+# Use systemctl is-active to check if the service is running.
 - name: Verify and recover {{ service }} if needed
   block:
     # Check if the service is running
@@ -7,6 +13,8 @@
       ansible.builtin.command: systemctl is-active {{ service }}
       register: service_check
       changed_when: false
+      # Using .stdout != "active" here since it's more readable but using
+      # .rc != 0 could achieve the same thing.
       failed_when: service_check.stdout != "active"
 
   rescue:
@@ -31,4 +39,6 @@
     - name: Report final error status
       ansible.builtin.fail:
         msg: "ERROR: Attempts to start {{ service }} have failed!"
+      # Using .stdout != "active" here since it's more readable but using
+      # .rc != 0 could achieve the same thing.
       when: restart_check.stdout != "active"

@@ -1,0 +1,5 @@
+# vars/firewall_rules.yml
+# This file contains the firewall rules to open ports for.
+rule:
+  - name: http
+  - name: https

@@ -1,3 +1,6 @@
+# main.yml
+# This playbook coordinates the automation.
+# Most customization should be done within the tasks or vars
 ---
 # Configure the webservers.
 - name: Configure webservers
@@ -6,13 +9,14 @@
     - vars/packages.yml 
     - vars/user_groups.yml
     - vars/users.yml
+    - vars/firewall_rules.yml
 
   tasks:
     # Manage user groups and users
     - name: Configure user accounts and groups
       include_tasks: tasks/user_management.yml
 
-    # Install the packages and start the related services.
+    # Install packages and start related services.
     - name: Include the environment task file and set the variables
       include_tasks: tasks/environment.yml
       vars:
@@ -20,7 +24,7 @@
         service: "{{ item.service }}"
       loop: "{{ packages }}"
 
-    # Check the status of the services
+    # Check the status of the services, restarting the service if necessary
     - name: Verify service status
       include_tasks: tasks/verify_services.yml
       vars:
@@ -31,11 +35,10 @@
     - name: Open the firewall ports
       include_tasks: tasks/firewall.yml
       vars:
-        rule:
-          - http
-          - https
+        rule: "{{ item.name }}"
+      loop: "{{ rules }}"
 
-    # Create the index
+    # Deploy web content for testing.
     - name: Create web index
       include_tasks: tasks/web_content.yml
 

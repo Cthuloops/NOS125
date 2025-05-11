@@ -1,4 +1,5 @@
-# List of packages to be installed installed on the target servers
+# List of packages to be installed installed on the target hosts and the
+# related services to be started.
 packages:
   - name: httpd
     service: httpd
