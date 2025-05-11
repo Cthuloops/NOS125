@@ -1,27 +1,3 @@
 ---
-- name: Test web service
-  hosts: workstation
-  become: false
-  tasks:
-    - name: Connect to internet web server
-      ansible.builtin.uri:
-        url: "http://{{ item }}"
-        status_code: 200
-      loop: "{{ groups['webservers'] }}"
-      register: results
-      ignore_errors: true
-
-    - name: Display test results
-      ansible.builtin.debug:
-        msg: |
-        WEB SERVER STATUS:
-        {% for item in results.results %}
-        {% set server_status %}
-        {% if item.status is defined and item.status == 200 %}
-        ONLINE (Status: 200)
-        {% else %}
-        OFFLINE (Status: {{ item.status | default('Connection Error') }})
-        {% endif %}
-        {% endset %}
-        - {{ item.item }}: {{ server_status }}
-        verbosity: 0
+# Import and run the test playbooks
+- name: Run testing playbooks

@@ -1,0 +1,26 @@
+---
+- name: Test user creation
+  hosts: webservers
+  vars_file:
+    - ../vars/users.yml
+    - ../vars/user_groups.yml
+
+  tasks:
+    - name: Verify groups exist
+      ansible.builtin.commnd: getent group {{ item.name }}
+      register: group_results
+      changed_when: false
+      loop: "{{ admin_groups }}"
+      ignore_errors: true
+
+    - name: Verify users exist
+      ansible.builtin.command: id {{ item.username }}
+      regist: user_results
+      changed_when: false
+      loop: "{{ users }}"
+      ignore_errors: true
+
+    - name: Display test results
+      ansible.builtin.debug:
+        msg:
+          - "Group results: {{ group_results.results }}"

@@ -1,11 +1,17 @@
 ---
-# First play, configure the webservers.
+# Configure the webservers.
 - name: Configure webservers
   hosts: webservers
   vars_files:
     - vars/packages.yml 
+    - vars/user_groups.yml
+    - vars/users.yml
 
   tasks:
+    # Manage user groups and users
+    - name: Configure user accounts and groups
+      include_tasks: tasks/user_management.yml
+
     # Install the packages and start the related services.
     - name: Include the environment task file and set the variables
       include_tasks: tasks/environment.yml
@@ -33,8 +39,6 @@
     - name: Create web index
       include_tasks: tasks/web_content.yml
 
-# Second play, import the test playbook and run against the webservers.
-- name: Import test play file and set the variable
-  import_playbook: plays/test.yml
-  vars:
-    host_group: webservers
+# Import and run the tests
+- name: Run tests
+  import_playbook: test.yml

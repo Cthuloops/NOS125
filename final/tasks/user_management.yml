@@ -1,0 +1,28 @@
+---
+- name: Configure user groups
+  block:
+    - name: Create admin groups
+      ansible.builtin.group:
+        name: "{{ item.name }}"
+        state: "{{ item.state }}"
+      loop: "{{ admin_groups }}"
+  rescue:
+    - name: Report group creation failure
+      ansible.builtin.debug:
+        msg: "Failed to create group: {{ item.name }}"
+      loop: "{{ admin_groups }}"
+
+- name: Configure user
+  block:
+    - name: Create users
+      ansible.builtin.user:
+        name: "{{ item.username }}"
+        group: "{{ item.group }}"
+        home: "{{ item.home }}"
+        state: present
+      loop: "{{ users }}"
+  rescue:
+    - name: Report user creation failure
+      ansible.builtin.debug:
+        msg: "Failed to create user: {{ item.username }}"
+      loop: "{{ users }}"
