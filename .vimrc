@@ -8,6 +8,11 @@ syntax on
 
 let mapleader = "<space>"
 
+"Turn off Vi compatability
+set nocompatible
+
+"Allow buffer switching w/o asking to save
+set hidden
 
 "remaps
 nnoremap <C-d> <C-d>zz "center on half page move down
