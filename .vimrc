@@ -6,6 +6,11 @@ set number relativenumber "absolute line and relative jumps
 set ruler
 syntax on
 
+let mapleader = "<space>"
+
+
 "remaps
 nnoremap <C-d> <C-d>zz "center on half page move down
 nnoremap <C-u> <C-u>zz "center on half page move up
+
+nnoremap <Leader>fv :Explore<CR>
