@@ -1,15 +1,20 @@
-autocmd FileType yaml setlocal ts=2 sw=2
+"Turn off Vi compatability
+set nocompatible
+
 set et ai "expand tabs and autoindent
-set ts=4 sw=4 "tabstop and shiftwidth
+set ts=4 sts=4 sw=4 "tabstop, softtabstop, and shiftwidth
+set sta "smarttab
 set colorcolumn=80
 set number relativenumber "absolute line and relative jumps
 set ruler
+
+filetype plugin indent on
 syntax on
 
-let mapleader = "<space>"
+"Filetype commands
+autocmd FileType yaml setlocal ts=2 sw=2
 
-"Turn off Vi compatability
-set nocompatible
+let mapleader = " "
 
 "Allow buffer switching w/o asking to save
 set hidden
