@@ -11,6 +11,11 @@ set ruler
 filetype plugin indent on
 syntax on
 
+"Do good colors
+if has("termguicolors")
+  set termguicolors
+endif
+
 "Filetype commands
 autocmd FileType yaml setlocal ts=2 sw=2
 
